@@ -1,0 +1,10 @@
+D:\Projects\ytdlpgui2\ytdlpgui\bin\Debug\ytdlpgui.exe.config
+D:\Projects\ytdlpgui2\ytdlpgui\bin\Debug\ytdlpgui.exe
+D:\Projects\ytdlpgui2\ytdlpgui\bin\Debug\ytdlpgui.pdb
+D:\Projects\ytdlpgui2\ytdlpgui\obj\Debug\ytdlpgui.csproj.AssemblyReference.cache
+D:\Projects\ytdlpgui2\ytdlpgui\obj\Debug\ytdlpgui.Properties.Resources.resources
+D:\Projects\ytdlpgui2\ytdlpgui\obj\Debug\ytdlpgui.csproj.GenerateResource.cache
+D:\Projects\ytdlpgui2\ytdlpgui\obj\Debug\ytdlpgui.csproj.CoreCompileInputs.cache
+D:\Projects\ytdlpgui2\ytdlpgui\obj\Debug\ytdlpgui.exe
+D:\Projects\ytdlpgui2\ytdlpgui\obj\Debug\ytdlpgui.pdb
+D:\Projects\ytdlpgui2\ytdlpgui\obj\Debug\ytdlpgui.ytdlpgui.resources
