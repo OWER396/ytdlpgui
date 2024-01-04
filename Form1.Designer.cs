@@ -37,6 +37,11 @@
             this.videoButton = new System.Windows.Forms.Button();
             this.updateytdlpButton = new System.Windows.Forms.Button();
             this.downloadsButton = new System.Windows.Forms.Button();
+            this.downloadpath = new System.Windows.Forms.Button();
+            this.videoFormatText = new System.Windows.Forms.Label();
+            this.videoFormatCombo = new System.Windows.Forms.ComboBox();
+            this.audioFormatText = new System.Windows.Forms.Label();
+            this.audioFormatCombo = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // linkBox
@@ -99,7 +104,7 @@
             // 
             this.audioButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.audioButton.ForeColor = System.Drawing.Color.White;
-            this.audioButton.Location = new System.Drawing.Point(12, 101);
+            this.audioButton.Location = new System.Drawing.Point(12, 180);
             this.audioButton.Name = "audioButton";
             this.audioButton.Size = new System.Drawing.Size(133, 30);
             this.audioButton.TabIndex = 6;
@@ -111,7 +116,7 @@
             // 
             this.videoButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.videoButton.ForeColor = System.Drawing.Color.White;
-            this.videoButton.Location = new System.Drawing.Point(159, 101);
+            this.videoButton.Location = new System.Drawing.Point(159, 180);
             this.videoButton.Name = "videoButton";
             this.videoButton.Size = new System.Drawing.Size(133, 30);
             this.videoButton.TabIndex = 7;
@@ -123,7 +128,7 @@
             // 
             this.updateytdlpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.updateytdlpButton.ForeColor = System.Drawing.Color.White;
-            this.updateytdlpButton.Location = new System.Drawing.Point(12, 141);
+            this.updateytdlpButton.Location = new System.Drawing.Point(12, 220);
             this.updateytdlpButton.Name = "updateytdlpButton";
             this.updateytdlpButton.Size = new System.Drawing.Size(133, 30);
             this.updateytdlpButton.TabIndex = 8;
@@ -135,7 +140,7 @@
             // 
             this.downloadsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.downloadsButton.ForeColor = System.Drawing.Color.White;
-            this.downloadsButton.Location = new System.Drawing.Point(159, 141);
+            this.downloadsButton.Location = new System.Drawing.Point(159, 220);
             this.downloadsButton.Name = "downloadsButton";
             this.downloadsButton.Size = new System.Drawing.Size(133, 30);
             this.downloadsButton.TabIndex = 9;
@@ -143,12 +148,95 @@
             this.downloadsButton.UseVisualStyleBackColor = true;
             this.downloadsButton.Click += new System.EventHandler(this.downloadsButton_Click);
             // 
+            // downloadpath
+            // 
+            this.downloadpath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.downloadpath.ForeColor = System.Drawing.Color.White;
+            this.downloadpath.Location = new System.Drawing.Point(12, 260);
+            this.downloadpath.Name = "downloadpath";
+            this.downloadpath.Size = new System.Drawing.Size(280, 30);
+            this.downloadpath.TabIndex = 10;
+            this.downloadpath.Text = "Change download path";
+            this.downloadpath.UseVisualStyleBackColor = true;
+            this.downloadpath.Click += new System.EventHandler(this.downloadpath_Click);
+            // 
+            // videoFormatText
+            // 
+            this.videoFormatText.AutoSize = true;
+            this.videoFormatText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.videoFormatText.ForeColor = System.Drawing.Color.White;
+            this.videoFormatText.Location = new System.Drawing.Point(12, 89);
+            this.videoFormatText.Name = "videoFormatText";
+            this.videoFormatText.Size = new System.Drawing.Size(72, 13);
+            this.videoFormatText.TabIndex = 12;
+            this.videoFormatText.Text = "Video Format:";
+            // 
+            // videoFormatCombo
+            // 
+            this.videoFormatCombo.AllowDrop = true;
+            this.videoFormatCombo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.videoFormatCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.videoFormatCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.videoFormatCombo.ForeColor = System.Drawing.Color.White;
+            this.videoFormatCombo.FormattingEnabled = true;
+            this.videoFormatCombo.Items.AddRange(new object[] {
+            "avi",
+            "flv",
+            "mkv",
+            "mov",
+            "mp4",
+            "webm"});
+            this.videoFormatCombo.Location = new System.Drawing.Point(12, 105);
+            this.videoFormatCombo.MaxLength = 10;
+            this.videoFormatCombo.Name = "videoFormatCombo";
+            this.videoFormatCombo.Size = new System.Drawing.Size(280, 21);
+            this.videoFormatCombo.TabIndex = 11;
+            // 
+            // audioFormatText
+            // 
+            this.audioFormatText.AutoSize = true;
+            this.audioFormatText.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.audioFormatText.ForeColor = System.Drawing.Color.White;
+            this.audioFormatText.Location = new System.Drawing.Point(12, 130);
+            this.audioFormatText.Name = "audioFormatText";
+            this.audioFormatText.Size = new System.Drawing.Size(72, 13);
+            this.audioFormatText.TabIndex = 14;
+            this.audioFormatText.Text = "Audio Format:";
+            // 
+            // audioFormatCombo
+            // 
+            this.audioFormatCombo.AllowDrop = true;
+            this.audioFormatCombo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.audioFormatCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.audioFormatCombo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.audioFormatCombo.ForeColor = System.Drawing.Color.White;
+            this.audioFormatCombo.FormattingEnabled = true;
+            this.audioFormatCombo.Items.AddRange(new object[] {
+            "aac",
+            "alac",
+            "flac",
+            "m4a",
+            "mp3",
+            "opus",
+            "vorbis",
+            "wav"});
+            this.audioFormatCombo.Location = new System.Drawing.Point(12, 146);
+            this.audioFormatCombo.MaxLength = 10;
+            this.audioFormatCombo.Name = "audioFormatCombo";
+            this.audioFormatCombo.Size = new System.Drawing.Size(280, 21);
+            this.audioFormatCombo.TabIndex = 13;
+            // 
             // ytdlpgui
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
-            this.ClientSize = new System.Drawing.Size(304, 183);
+            this.ClientSize = new System.Drawing.Size(304, 302);
+            this.Controls.Add(this.audioFormatText);
+            this.Controls.Add(this.audioFormatCombo);
+            this.Controls.Add(this.videoFormatText);
+            this.Controls.Add(this.videoFormatCombo);
+            this.Controls.Add(this.downloadpath);
             this.Controls.Add(this.downloadsButton);
             this.Controls.Add(this.updateytdlpButton);
             this.Controls.Add(this.videoButton);
@@ -159,6 +247,8 @@
             this.Controls.Add(this.linkBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(320, 341);
+            this.MinimumSize = new System.Drawing.Size(320, 341);
             this.Name = "ytdlpgui";
             this.Text = "ytdlpgui";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -176,6 +266,11 @@
         private System.Windows.Forms.Button videoButton;
         private System.Windows.Forms.Button updateytdlpButton;
         private System.Windows.Forms.Button downloadsButton;
+        private System.Windows.Forms.Button downloadpath;
+        private System.Windows.Forms.Label videoFormatText;
+        private System.Windows.Forms.ComboBox videoFormatCombo;
+        private System.Windows.Forms.Label audioFormatText;
+        private System.Windows.Forms.ComboBox audioFormatCombo;
     }
 }
 

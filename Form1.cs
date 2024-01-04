@@ -2,13 +2,18 @@
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace ytdlpgui
 {
     public partial class ytdlpgui : Form
     {
-        private static string dwnPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+"\\ytdlpgui";
-        private static string ytdlp = AppDomain.CurrentDomain.BaseDirectory+"\\ytdlp\\ytdlp.exe";
+        private static readonly string ytdlp = AppDomain.CurrentDomain.BaseDirectory+"\\ytdlp\\ytdlp.exe";
+        private static readonly string config = AppDomain.CurrentDomain.BaseDirectory + "\\config.json";
+        private static readonly string defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ytdlpgui";
+        private string dwnPath;
 
         public ytdlpgui()
         {
@@ -17,11 +22,49 @@ namespace ytdlpgui
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if(!Directory.Exists(dwnPath))
+            AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
+
+            if (!File.Exists(config))
             {
-                Directory.CreateDirectory(dwnPath);
+                var newConfig = new Config()
+                {
+                    dwnPath = defaultPath,
+                    quality = 0,
+                    video = 4,
+                    audio = 4
+                };
+
+                var newConfigJson = JsonConvert.SerializeObject(newConfig);
+
+                using (StreamWriter json = new StreamWriter(config))
+                {
+                    json.WriteLine(newConfigJson.ToString());
+                }
             }
-            qualityCombo.SelectedIndex = 0;
+
+            var configFile = JsonConvert.DeserializeObject<Config>(File.ReadAllText(config));
+
+            if(String.IsNullOrEmpty(configFile.dwnPath))
+            {
+                dwnPath = defaultPath;
+            }
+            else
+            {
+                dwnPath = configFile.dwnPath;
+            }
+
+            if(!Directory.Exists(configFile.dwnPath) && !String.IsNullOrEmpty(configFile.dwnPath))
+            {
+                Directory.CreateDirectory(configFile.dwnPath);
+            }
+            qualityCombo.SelectedIndex = configFile.quality;
+            videoFormatCombo.SelectedIndex = configFile.video;
+            audioFormatCombo.SelectedIndex = configFile.audio;
+        }
+
+        public string ExtractNumber(string original)
+        {
+            return new string(original.Where(c => Char.IsDigit(c)).ToArray());
         }
 
         private void updateytdlpButton_Click(object sender, EventArgs e)
@@ -35,75 +78,19 @@ namespace ytdlpgui
         private void videoButton_Click(object sender, EventArgs e)
         {
 
-            if (qualityCombo.SelectedItem.ToString() == "Best available")
+            if (qualityCombo.SelectedIndex == 0)
             {
                 Process video = new Process();
                 video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_bestquality.%(ext)s";
+                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString()+ " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_bestquality.%(ext)s";
                 video.Start();
             }
 
-            if (qualityCombo.SelectedItem.ToString() == "2160p")
+            if (qualityCombo.SelectedIndex >= 1)
             {
                 Process video = new Process();
                 video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height=2160]+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_2160p.%(ext)s";
-                video.Start();
-            }
-
-            if (qualityCombo.SelectedItem.ToString() == "1440p")
-            {
-                Process video = new Process();
-                video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height=1440]+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_1440p.%(ext)s";
-                video.Start();
-            }
-
-            if (qualityCombo.SelectedItem.ToString() == "1080p")
-            {
-                Process video = new Process();
-                video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height=1080]+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_1080p.%(ext)s";
-                video.Start();
-            }
-
-            if (qualityCombo.SelectedItem.ToString() == "720p")
-            {
-                Process video = new Process();
-                video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height=720]+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_720p.%(ext)s";
-                video.Start();
-            }
-
-            if (qualityCombo.SelectedItem.ToString() == "480p")
-            {
-                Process video = new Process();
-                video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height=480]+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_480p.%(ext)s";
-                video.Start();
-            }
-
-            if (qualityCombo.SelectedItem.ToString() == "360p")
-            {
-                Process video = new Process();
-                video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height=360]+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_360p.%(ext)s";
-                video.Start();
-            }
-
-            if (qualityCombo.SelectedItem.ToString() == "240p")
-            {
-                Process video = new Process();
-                video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height=240]+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_240p.%(ext)s";
-                video.Start();
-            }
-
-            if (qualityCombo.SelectedItem.ToString() == "144p")
-            {
-                Process video = new Process();
-                video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height=144]+ba --merge-output-format mp4 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_144p.%(ext)s";
+                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height="+ExtractNumber(qualityCombo.SelectedItem.ToString())+"]+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_"+ qualityCombo.SelectedItem.ToString()+".%(ext)s";
                 video.Start();
             }
         }
@@ -112,7 +99,7 @@ namespace ytdlpgui
         {
             Process audio = new Process();
             audio.StartInfo.FileName = "cmd.exe";
-            audio.StartInfo.Arguments = "/K " + ytdlp + " -f ba -x --audio-format mp3 " + linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
+            audio.StartInfo.Arguments = "/K " + ytdlp + " -f ba -x --audio-format "+audioFormatCombo.SelectedItem.ToString()+" "+ linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
             audio.Start();
         }
 
@@ -120,5 +107,47 @@ namespace ytdlpgui
         {
             Process.Start("explorer.exe", dwnPath);
         }
+
+
+        private void downloadpath_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Make sure to choose a path that doesn't have spaces!");
+
+            using(var path = new FolderBrowserDialog())
+            {
+                DialogResult result = path.ShowDialog();
+
+                if(result == DialogResult.OK && !string.IsNullOrEmpty(path.SelectedPath))
+                {
+                    dwnPath = path.SelectedPath;
+                }
+            }
+        }
+        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        {
+            var savedConfig = new Config()
+            {
+                dwnPath = dwnPath,
+                quality = qualityCombo.SelectedIndex,
+                video = videoFormatCombo.SelectedIndex,
+                audio = audioFormatCombo.SelectedIndex
+            };
+
+            var configJson = JsonConvert.SerializeObject(savedConfig);
+
+            using (StreamWriter json = new StreamWriter(config))
+            {
+                json.WriteLine(configJson.ToString());
+            }
+
+        }
+    }
+
+    public class Config
+    {
+        public string dwnPath { get; set; }
+        public int quality { get; set; }
+        public int video { get; set; }
+        public int audio { get; set; }
     }
 }
