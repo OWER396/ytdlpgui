@@ -1,4 +1,4 @@
-![ytdlpgui](https://cdn.discordapp.com/attachments/911661928227688459/1192439103690653857/image.png?ex=65a91474&is=65969f74&hm=f94fdbe829ee67ffafc3d20a267c8dfb62d65e386d4d9b80ef0af052518ed4f2&)
+![ytdlpgui](https://cdn.discordapp.com/attachments/911661928227688459/1203515686333325362/image.png?ex=65d16053&is=65beeb53&hm=497e3248a0a6a83183d4e0dfd2a866c3418293294df0e1c3a72a7354a12a1edb&)
 # ytdlpgui
 This was initially made for myself so the code might suck :D
 ## Requirements
