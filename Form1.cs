@@ -76,30 +76,46 @@ namespace ytdlpgui
 
         private void videoButton_Click(object sender, EventArgs e)
         {
-
-            if (qualityCombo.SelectedIndex == 0)
+            if (qualityCombo.SelectedIndex == 0 && !nonYoutubeFlag.Checked)
             {
                 Process video = new Process();
                 video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString()+ " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_bestquality.%(ext)s";
+                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + '"' + dwnPath + '"' + "%(title)s_bestquality.%(ext)s";
                 video.Start();
             }
 
-            if (qualityCombo.SelectedIndex >= 1)
+            if (qualityCombo.SelectedIndex >= 1 && !nonYoutubeFlag.Checked)
             {
                 Process video = new Process();
                 video.StartInfo.FileName = "cmd.exe";
                 video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height="+ExtractNumber(qualityCombo.SelectedItem.ToString())+"]+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_"+ qualityCombo.SelectedItem.ToString()+".%(ext)s";
                 video.Start();
             }
+
+            if(nonYoutubeFlag.Checked)
+            {
+                Process video = new Process();
+                video.StartInfo.FileName = "cmd.exe";
+                video.StartInfo.Arguments = "/K " + ytdlp + " --remux-video " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
+                video.Start();
+            }
         }
 
         private void audioButton_Click(object sender, EventArgs e)
         {
-            Process audio = new Process();
-            audio.StartInfo.FileName = "cmd.exe";
-            audio.StartInfo.Arguments = "/K " + ytdlp + " -f ba -x --audio-format "+audioFormatCombo.SelectedItem.ToString()+" "+ linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
-            audio.Start();
+            if(!nonYoutubeFlag.Checked)
+            {
+                Process audio = new Process();
+                audio.StartInfo.FileName = "cmd.exe";
+                audio.StartInfo.Arguments = "/K " + ytdlp + " -f ba -x --audio-format "+audioFormatCombo.SelectedItem.ToString()+ " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
+                audio.Start();
+            }else
+            {
+                Process audio = new Process();
+                audio.StartInfo.FileName = "cmd.exe";
+                audio.StartInfo.Arguments = "/K " + ytdlp + " -x --audio-format " + audioFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
+                audio.Start();
+            }
         }
 
         private void downloadsButton_Click(object sender, EventArgs e)
@@ -122,6 +138,12 @@ namespace ytdlpgui
                 }
             }
         }
+
+        private void nonYoutubeFlag_CheckedChanged(object sender, EventArgs e)
+        {
+            qualityCombo.Enabled = !nonYoutubeFlag.Checked;
+        }
+
         private void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
             var savedConfig = new Config()
@@ -140,6 +162,7 @@ namespace ytdlpgui
             }
 
         }
+
     }
 
     public class Config
