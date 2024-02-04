@@ -8,3 +8,4 @@ This was initially made for myself so the code might suck :D
 * Very simple to use
 * Any video quality and any audio/video format you like
 * Extract audio from a video
+* Downloads outside of youtube
