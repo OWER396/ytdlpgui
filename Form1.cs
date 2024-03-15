@@ -80,7 +80,7 @@ namespace ytdlpgui
             {
                 Process video = new Process();
                 video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + '"' + dwnPath + '"' + "%(title)s_bestquality.%(ext)s";
+                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + '"' + dwnPath + '"' + "\\%(title)s_bestquality.%(ext)s";
                 video.Start();
             }
 
