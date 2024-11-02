@@ -88,7 +88,7 @@ namespace ytdlpgui
             {
                 Process video = new Process();
                 video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height="+ExtractNumber(qualityCombo.SelectedItem.ToString())+"]+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s_"+ qualityCombo.SelectedItem.ToString()+".%(ext)s";
+                video.StartInfo.Arguments = "/K " + ytdlp + " -f bv[height="+ExtractNumber(qualityCombo.SelectedItem.ToString())+"]+ba --merge-output-format " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + '"' + dwnPath + '"' + "\\%(title)s_" + qualityCombo.SelectedItem.ToString()+".%(ext)s";
                 video.Start();
             }
 
@@ -96,7 +96,7 @@ namespace ytdlpgui
             {
                 Process video = new Process();
                 video.StartInfo.FileName = "cmd.exe";
-                video.StartInfo.Arguments = "/K " + ytdlp + " --remux-video " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
+                video.StartInfo.Arguments = "/K " + ytdlp + " --remux-video " + videoFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + '"' + dwnPath + '"' + "\\%(title)s.%(ext)s";
                 video.Start();
             }
         }
@@ -107,13 +107,13 @@ namespace ytdlpgui
             {
                 Process audio = new Process();
                 audio.StartInfo.FileName = "cmd.exe";
-                audio.StartInfo.Arguments = "/K " + ytdlp + " -f ba -x --audio-format "+audioFormatCombo.SelectedItem.ToString()+ " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
+                audio.StartInfo.Arguments = "/K " + ytdlp + " -f ba -x --audio-format "+audioFormatCombo.SelectedItem.ToString()+ " " + linkBox.Text + " -o " + '"' + dwnPath + '"' + "\\%(title)s.%(ext)s";
                 audio.Start();
             }else
             {
                 Process audio = new Process();
                 audio.StartInfo.FileName = "cmd.exe";
-                audio.StartInfo.Arguments = "/K " + ytdlp + " -x --audio-format " + audioFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + dwnPath + "\\%(title)s.%(ext)s";
+                audio.StartInfo.Arguments = "/K " + ytdlp + " -x --audio-format " + audioFormatCombo.SelectedItem.ToString() + " " + linkBox.Text + " -o " + +'"' + dwnPath + '"' + "\\%(title)s.%(ext)s";
                 audio.Start();
             }
         }
@@ -126,7 +126,6 @@ namespace ytdlpgui
 
         private void downloadpath_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Make sure to choose a path that doesn't have spaces!");
 
             using(var path = new FolderBrowserDialog())
             {
